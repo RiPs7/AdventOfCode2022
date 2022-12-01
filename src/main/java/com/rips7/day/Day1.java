@@ -1,14 +1,42 @@
 package com.rips7.day;
 
-public class Day1 extends Day{
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Stream;
+
+public class Day1 extends Day<Integer> {
 
     @Override
-    public void part1() {
+    public Integer part1(final List<String> lines) {
+        final int max = getElfTotalCalories(lines)
+            .max(Integer::compareTo)
+            .orElse(0);
 
+        print("The Elf carrying the most calories, is carrying %s calories.%n", max);
+
+        return max;
     }
 
     @Override
-    public void part2() {
+    public Integer part2(final List<String> lines) {
+        final int top3ElvesTotal = getElfTotalCalories(lines)
+            .sorted(Comparator.reverseOrder())
+            .limit(3)
+            .reduce(Integer::sum)
+            .orElse(0);
+
+        print("The top three Elves are carrying %s calories in total.%n", top3ElvesTotal);
+
+        return top3ElvesTotal;
+    }
+
+    private Stream<Integer> getElfTotalCalories(final List<String> input) {
+        return Arrays.stream(String.join("\n", input).split("\n\n"))
+            .map(group -> Arrays.stream(group.split("\n"))
+                .map(Integer::parseInt)
+                .reduce(Integer::sum)
+                .orElse(0));
 
     }
 }
