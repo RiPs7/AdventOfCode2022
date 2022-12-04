@@ -27,4 +27,6 @@ public class Utils {
         return System.currentTimeMillis() - start;
     }
 
+    public record Pair<K, V>(K key, V value) {}
+
 }
