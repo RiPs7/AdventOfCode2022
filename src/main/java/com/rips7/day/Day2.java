@@ -13,7 +13,7 @@ public class Day2 extends Day<Integer> {
             .reduce(Integer::sum)
             .orElse(0);
 
-        print("Total score is %s.%n", totalScore);
+        printfln("Total score is %s.", totalScore);
 
         return totalScore;
     }
@@ -27,7 +27,7 @@ public class Day2 extends Day<Integer> {
             .reduce(Integer::sum)
             .orElse(0);
 
-        print("Total score is %s.%n", totalScore);
+        printfln("Total score is %s.", totalScore);
 
         return totalScore;
     }

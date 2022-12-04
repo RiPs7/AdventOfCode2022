@@ -13,7 +13,7 @@ public class Day1 extends Day<Integer> {
             .max(Integer::compareTo)
             .orElse(0);
 
-        print("The Elf carrying the most calories, is carrying %s calories.%n", max);
+        printfln("The Elf carrying the most calories, is carrying %s calories.", max);
 
         return max;
     }
@@ -26,7 +26,7 @@ public class Day1 extends Day<Integer> {
             .reduce(Integer::sum)
             .orElse(0);
 
-        print("The top three Elves are carrying %s calories in total.%n", top3ElvesTotal);
+        printfln("The top three Elves are carrying %s calories in total.", top3ElvesTotal);
 
         return top3ElvesTotal;
     }

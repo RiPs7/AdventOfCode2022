@@ -1,19 +1,32 @@
 package com.rips7.day;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static com.rips7.Utils.readLines;
 import static com.rips7.Utils.timeIt;
 
 public abstract class Day<OUTPUT> {
 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_BOLD = "\u001B[1m";
-    public static final String ANSI_ITALIC = "\u001B[3m";
-    public static final String ANSI_UNDERLINE = "\u001B[4m";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_BOLD = "\u001B[1m";
+    private static final String ANSI_ITALIC = "\u001B[3m";
+    private static final String ANSI_UNDERLINE = "\u001B[4m";
+
+    public static final List<? extends Day<?>> DAYS =
+        IntStream.rangeClosed(1, 3).mapToObj(i -> Day.class.getName() + i).map(d -> {
+                try {
+                    return (Day<?>) Class.forName(d).getConstructor().newInstance();
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                         NoSuchMethodException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            })
+            .toList();
 
     public abstract OUTPUT part1(final List<String> input);
 
@@ -31,8 +44,8 @@ public abstract class Day<OUTPUT> {
         System.out.printf("%s=====================%s%n%n", ANSI_RED, ANSI_RESET);
     }
 
-    void print(final String str, final OUTPUT result) {
-        final String formattedString = str.replace("%s", ANSI_BOLD + ANSI_ITALIC + ANSI_UNDERLINE + "%s" + ANSI_RESET);
+    void printfln(final String str, final OUTPUT result) {
+        final String formattedString = str.replace("%s", ANSI_BOLD + ANSI_ITALIC + ANSI_UNDERLINE + "%s" + ANSI_RESET) + "%n";
         System.out.printf(formattedString, result);
     }
 

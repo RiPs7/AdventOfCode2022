@@ -28,7 +28,7 @@ public class Day3 extends Day<Integer> {
             .reduce(Integer::sum)
             .orElse(0);
 
-        print("The sum of the priorities of item types in both compartments is %s.%n", totalPriorities);
+        printfln("The sum of the priorities of item types in both compartments is %s.", totalPriorities);
 
         return totalPriorities;
     }
@@ -49,7 +49,7 @@ public class Day3 extends Day<Integer> {
             .reduce(Integer::sum)
             .orElse(0);
 
-        print("The sum of the priorities of item types in all three rucksacks is %s.%n", totalPriorities);
+        printfln("The sum of the priorities of item types in all three rucksacks is %s.", totalPriorities);
 
         return totalPriorities;
     }
