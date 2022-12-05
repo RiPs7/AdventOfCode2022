@@ -18,7 +18,7 @@ public abstract class Day<OUTPUT> {
     private static final String ANSI_UNDERLINE = "\u001B[4m";
 
     public static final List<? extends Day<?>> DAYS =
-        IntStream.rangeClosed(1, 4).mapToObj(i -> Day.class.getName() + i).map(d -> {
+        IntStream.rangeClosed(1, 5).mapToObj(i -> Day.class.getName() + i).map(d -> {
                 try {
                     return (Day<?>) Class.forName(d).getConstructor().newInstance();
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
