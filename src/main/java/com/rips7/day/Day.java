@@ -2,6 +2,7 @@ package com.rips7.day;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 import static com.rips7.Utils.readLines;
@@ -18,14 +19,18 @@ public abstract class Day<OUTPUT> {
     private static final String ANSI_UNDERLINE = "\u001B[4m";
 
     public static final List<? extends Day<?>> DAYS =
-        IntStream.rangeClosed(1, 6).mapToObj(i -> Day.class.getName() + i).map(d -> {
+        IntStream.rangeClosed(1, 25).mapToObj(i -> Day.class.getName() + i).map(d -> {
                 try {
                     return (Day<?>) Class.forName(d).getConstructor().newInstance();
+                } catch (ClassNotFoundException e) {
+                    return null;
+                    // ignore for non-implemented days
                 } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                         NoSuchMethodException | ClassNotFoundException e) {
+                         NoSuchMethodException e) {
                     throw new RuntimeException(e);
                 }
             })
+            .filter(Objects::nonNull)
             .toList();
 
     public abstract OUTPUT part1(final List<String> input);
