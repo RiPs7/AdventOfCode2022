@@ -56,6 +56,11 @@ public class Utils {
         public int hashCode() {
             return Objects.hash(key, value);
         }
+
+        @Override
+        public String toString() {
+            return "[%s,%s]".formatted(key, value);
+        }
     }
 
 }
